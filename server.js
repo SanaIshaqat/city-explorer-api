@@ -1,23 +1,23 @@
 "use strict";
 const express = require('express');
-const app = express();
+const server = express();
 const cors = require('cors');
-
-app.use(cors());
+// app.use(cors());
 require('dotenv').config();
 const PORT = process.env.PORT;
-const handleWeather = require('./Controllers/Weather.controller')
-const handleMovie = require('./Controllers/Movies.controller')
+const handleWeather = require('./Controllers/Weather.controller');
+const handleMovie = require('./Controllers/Movies.controller');
+server.use(cors());
 
-app.get('/', (req, res) => {
+server.get('/', (req, res) => {
     res.status(200).json({ "Layout": "like this" })
 })
 
-app.get('/weather', handleWeather)
-app.get('/movies', handleMovie)
+server.get('/weather', handleWeather)
+server.get('/movies', handleMovie)
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 
 });
