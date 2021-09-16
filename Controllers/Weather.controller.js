@@ -1,7 +1,6 @@
 'use strict';
 const WeekForCast = require("../Models/Weather.model");
 const axios = require('axios');
-
 const Cache = require("../Helpers/cache");
 let cache = new Cache();
 
@@ -15,10 +14,8 @@ const handleWeather = async (req, res) => {
         res.json({ "data": cache, "Message": "Data is Coming From Cache" });
     }
     else {
-
         let responseData = await axios.get(url);
         let weatherData = responseData.data;
-
 
         let finalCleaned = weatherData.data.map(item => {
             return new WeekForCast(item.datetime, item.weather.description);
@@ -27,7 +24,6 @@ const handleWeather = async (req, res) => {
         cache.data = finalCleaned;
         res.status(200).json({ "data": cache.data, "Message": "Data is Coming from API" });
     }
-    // res.send(cache);
 }
 
 module.exports = handleWeather;
